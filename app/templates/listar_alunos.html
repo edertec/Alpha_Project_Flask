@@ -18,7 +18,7 @@
                 <div class="card animate__animated animate__fadeInUp">
                     <img class="card-img-top" src="{{ aluno.foto }}" alt="Foto de {{ aluno.nome }}">
                     <div class="card-body">
-                        <h5 class="card-title">{{ aluno.nome }}</h5>
+                        <h5 class="card-title"><a href="{{ url_for('detalhes_aluno', aluno_id=loop.index0) }}">{{ aluno.nome }}</a></h5>
                         <p class="card-text">Idade: {{ aluno.idade }}</p>
                         <p class="card-text">Mini bio: {{ aluno.mini_bio }}</p>
                         <a href="{{ aluno.github }}" class="btn btn-primary">GitHub</a>
