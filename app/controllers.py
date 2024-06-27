@@ -1,6 +1,4 @@
-from app.models import Aluno
-
-from app.models import Aluno
+from app.models import Aluno, Professor
 
 alunos = [
     Aluno("Ana Carolina Nunes", 20, "https://github.com/anacarolina", "https://linkedin.com/in/anacarolina", "Estudante de Engenharia.", "path/to/photo.jpg"),
@@ -38,3 +36,11 @@ alunos = [
     Aluno("Vitória Tumelero dos Santos", 20, "https://github.com/vitoriatumelero", "https://linkedin.com/in/vitoriatumelero", "Estudante de Engenharia.", "path/to/photo.jpg"),
     Aluno("William dos Santos da Silva", 21, "https://github.com/williamsilva", "https://linkedin.com/in/williamsilva", "Estudante de Engenharia.", "path/to/photo.jpg"),
 ]
+
+professores = [
+    Professor("Ana Carolina Nunes", "https://github.com/anacarolina", "https://linkedin.com/in/anacarolina", "Estudante de Engenharia.", "path/to/photo.jpg"),
+    Professor("Arthur Cantele Palmira", "https://github.com/arthurcantele", "https://linkedin.com/in/arthurcantele", "Estudante de Engenharia.", "path/to/photo.jpg"),
+    Professor("Arthur Fogaça", "https://github.com/arthurfogaca", "https://linkedin.com/in/arthurfogaca", "Estudante de Engenharia.", "path/to/photo.jpg"),
+    Professor("Arthur Zinani Pedroni", "https://github.com/arthurzinani", "https://linkedin.com/in/arthurzinani", "Estudante de Engenharia.", "path/to/photo.jpg")
+]
+ 

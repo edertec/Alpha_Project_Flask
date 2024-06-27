@@ -1,9 +1,24 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Bem-vindo</title>
-</head>
-<body>
-    <h1>Bem-vindo ao Projeto Aluno</h1>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}Bem-vindo{% endblock %}
+
+{% block content %}
+    <div class="welcome-container">
+        <h1>Bem-vindo ao Projeto Aluno</h1>
+        <div class="button-container">
+            <a href="{{ url_for('listar_alunos') }}">
+                <div class="button">Lista de Alunos</div>
+            </a>
+            <a href="{{ url_for('listar_professores') }}">
+                <div class="button">Lista de Professores</div>
+            </a>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('mousemove', function(e) {
+            var x = e.clientX / window.innerWidth;
+            var y = e.clientY / window.innerHeight;
+            document.body.style.backgroundPosition = x * 50 + '% ' + y * 50 + '%';
+        });
+    </script>
+{% endblock %}

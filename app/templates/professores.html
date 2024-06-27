@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Lista de Professores{% endblock %}
+
+{% block content %}
+    <h1 class="my-4 text-center">Lista de Professores</h1>
+    <div class="row">
+        {% for professor in professores %}
+        <div class="col-md-4 mb-4">
+            <div class="card animate__animated animate__fadeInUp">
+                <img class="card-img-top" src="{{ professor.foto }}" alt="Foto de {{ professor.nome }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ professor.nome }}</h5>
+                    <p class="card-text">Bio: {{ professor.bio }}</p>
+                    <a href="{{ professor.github }}" class="btn btn-primary">GitHub</a>
+                    <a href="{{ professor.linkedin }}" class="btn btn-secondary">LinkedIn</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}
