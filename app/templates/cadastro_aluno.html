@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}Cadastro de Aluno{% endblock %}
+
+{% block content %}
+    <h1 class="my-4 text-center">Cadastro de Aluno</h1>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <form method="POST">
+                <div class="form-group">
+                    <label for="nome">Nome</label>
+                    <input type="text" class="form-control" id="nome" name="nome" required>
+                </div>
+                <div class="form-group">
+                    <label for="idade">Idade</label>
+                    <input type="number" class="form-control" id="idade" name="idade" required>
+                </div>
+                <div class="form-group">
+                    <label for="github">GitHub</label>
+                    <input type="url" class="form-control" id="github" name="github" required>
+                </div>
+                <div class="form-group">
+                    <label for="linkedin">LinkedIn</label>
+                    <input type="url" class="form-control" id="linkedin" name="linkedin" required>
+                </div>
+                <div class="form-group">
+                    <label for="mini_bio">Mini Bio</label>
+                    <textarea class="form-control" id="mini_bio" name="mini_bio" rows="3" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="foto">URL da Foto</label>
+                    <input type="url" class="form-control" id="foto" name="foto" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Cadastrar</button>
+                <a href="{{ url_for('listar_alunos') }}" class="btn btn-secondary">Voltar para a Lista de Alunos</a>
+            </form>
+        </div>
+    </div>
+{% endblock %}
