@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}Cadastro de Nota{% endblock %}
+
+{% block content %}
+    <h1 class="my-4 text-center">Cadastro de Nota</h1>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <form method="POST">
+                <div class="form-group">
+                    <label for="aluno_id">Aluno</label>
+                    <select class="form-control" id="aluno_id" name="aluno_id" required>
+                        {% for aluno in alunos %}
+                        <option value="{{ loop.index0 }}">{{ aluno.nome }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="disciplina_id">Disciplina</label>
+                    <select class="form-control" id="disciplina_id" name="disciplina_id" required>
+                        {% for disciplina in disciplinas %}
+                        <option value="{{ loop.index0 }}">{{ disciplina.nome }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="nota">Nota</label>
+                    <input type="number" step="0.1" class="form-control" id="nota" name="nota" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Cadastrar</button>
+                <a href="{{ url_for('visualizar_estatisticas') }}" class="btn btn-secondary">Visualizar Estatísticas</a>
+            </form>
+        </div>
+    </div>
+{% endblock %}

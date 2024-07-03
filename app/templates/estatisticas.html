@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Estatísticas{% endblock %}
+
+{% block content %}
+    <h1 class="my-4 text-center">Estatísticas de Notas e Idades</h1>
+
+    <h2 class="text-center">Média das Notas por Disciplina</h2>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <img src="data:image/png;base64,{{ plot_url_barras }}" alt="Média das Notas por Disciplina" class="img-fluid">
+        </div>
+    </div>
+
+    <h2 class="text-center">Distribuição das Idades dos Alunos</h2>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <img src="data:image/png;base64,{{ plot_url_hist }}" alt="Distribuição das Idades dos Alunos" class="img-fluid">
+        </div>
+    </div>
+
+    <h2 class="text-center">Distribuição das Notas por Disciplina</h2>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <img src="data:image/png;base64,{{ plot_url_boxplot }}" alt="Distribuição das Notas por Disciplina" class="img-fluid">
+        </div>
+    </div>
+{% endblock %}

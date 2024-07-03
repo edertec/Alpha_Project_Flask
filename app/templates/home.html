@@ -1,30 +1,165 @@
 {% extends "base.html" %}
 
-{% block title %}Bem-vindo{% endblock %}
+{% block title %}Dashboard{% endblock %}
 
 {% block content %}
-    <div class="welcome-container">
-        <h1>Bem-vindo ao Projeto Aluno</h1>
-        <div class="button-container">
-            <a href="{{ url_for('listar_alunos') }}">
-                <div class="button">Lista de Alunos</div>
-            </a>
-            <a href="{{ url_for('listar_professores') }}">
-                <div class="button">Lista de Professores</div>
-            </a>
-            <a href="{{ url_for('cadastro_aluno') }}">
-                <div class="button">Cadastrar Aluno</div>
-            </a>
-            <a href="{{ url_for('cadastro_professor') }}">
-                <div class="button">Cadastrar Professor</div>
-            </a>
+<div class="container">
+    <div class="jumbotron text-center">
+        <h1 class="display-4">Bem-vindo ao Projeto Aluno</h1>
+        <p class="lead">Veja as estatísticas e navegue pelas diferentes áreas do projeto.</p>
+    </div>
+    
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card shadow-lg p-3 mb-5 bg-white rounded animate__animated animate__fadeInLeft">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Lista de Alunos</h5>
+                    <a href="{{ url_for('listar_alunos') }}" class="btn btn-primary btn-lg">Acessar</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card shadow-lg p-3 mb-5 bg-white rounded animate__animated animate__fadeInRight">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Lista de Professores</h5>
+                    <a href="{{ url_for('listar_professores') }}" class="btn btn-primary btn-lg">Acessar</a>
+                </div>
+            </div>
         </div>
     </div>
-    <script>
-        document.addEventListener('mousemove', function(e) {
-            var x = e.clientX / window.innerWidth;
-            var y = e.clientY / window.innerHeight;
-            document.body.style.backgroundPosition = x * 50 + '% ' + y * 50 + '%';
+
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card shadow-lg p-3 mb-5 bg-white rounded animate__animated animate__fadeInLeft">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Cadastrar Aluno</h5>
+                    <a href="{{ url_for('cadastro_aluno') }}" class="btn btn-success btn-lg">Cadastrar</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card shadow-lg p-3 mb-5 bg-white rounded animate__animated animate__fadeInRight">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Cadastrar Professor</h5>
+                    <a href="{{ url_for('cadastro_professor') }}" class="btn btn-success btn-lg">Cadastrar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card shadow-lg p-3 mb-5 bg-white rounded animate__animated animate__fadeInLeft">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Cadastrar Nota</h5>
+                    <a href="{{ url_for('cadastro_nota') }}" class="btn btn-info btn-lg">Cadastrar</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card shadow-lg p-3 mb-5 bg-white rounded animate__animated animate__fadeInRight">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Visualizar Estatísticas</h5>
+                    <a href="{{ url_for('visualizar_estatisticas') }}" class="btn btn-info btn-lg">Visualizar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="text-center">Estatísticas</h2>
+            <div class="card shadow-lg p-3 mb-5 bg-white rounded">
+                <div class="card-body">
+                    <h5 class="card-title">Média das Notas por Disciplina</h5>
+                    <canvas id="graficoMediaNotas"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="card shadow-lg p-3 mb-5 bg-white rounded">
+                <div class="card-body">
+                    <h5 class="card-title">Distribuição das Idades dos Alunos</h5>
+                    <canvas id="graficoIdades"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="card shadow-lg p-3 mb-5 bg-white rounded">
+                <div class="card-body">
+                    <h5 class="card-title">Notas dos Alunos por Disciplina</h5>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Aluno</th>
+                                <th>Disciplina</th>
+                                <th>Nota</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for nota in notas %}
+                            <tr>
+                                <td>{{ nota.aluno.nome }}</td>
+                                <td>{{ nota.disciplina.nome }}</td>
+                                <td>{{ nota.nota }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Gráfico de Barras: Média das Notas por Disciplina
+        var ctxMediaNotas = document.getElementById('graficoMediaNotas').getContext('2d');
+        var chartMediaNotas = new Chart(ctxMediaNotas, {
+            type: 'bar',
+            data: {
+                labels: {{ labels | tojson }},
+                datasets: [{
+                    label: 'Média das Notas',
+                    data: {{ data | tojson }},
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
         });
-    </script>
+
+        // Histograma: Distribuição das Idades dos Alunos
+        var ctxIdades = document.getElementById('graficoIdades').getContext('2d');
+        var chartIdades = new Chart(ctxIdades, {
+            type: 'bar',
+            data: {
+                labels: {{ age_labels | tojson }},
+                datasets: [{
+                    label: 'Idades',
+                    data: {{ age_data | tojson }},
+                    backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                    borderColor: 'rgba(153, 102, 255, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    });
+</script>
 {% endblock %}

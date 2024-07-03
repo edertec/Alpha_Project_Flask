@@ -14,3 +14,14 @@ class Professor:
         self.linkedin = linkedin
         self.bio = bio
         self.foto = foto
+
+class Disciplina:
+    def __init__(self, nome, professor):
+        self.nome = nome
+        self.professor = professor
+
+class Nota:
+    def __init__(self, aluno, disciplina, nota):
+        self.aluno = aluno
+        self.disciplina = disciplina
+        self.nota = nota
